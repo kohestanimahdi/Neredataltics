@@ -1,6 +1,7 @@
 ﻿using Grpc.Net.Client;
 using Microsoft.Extensions.Options;
 using Neredataltics.SmartFeatures.Data.Repositories;
+using Neredataltics.SmartFeatures.Models.Dtos;
 using Neredataltics.SmartFeatures.Models.Entities.WeatherAggregates.Enums;
 using Neredataltics.SmartFeatures.Models.Options;
 using Neredataltics.SmartFeatures.Services.WeatherServices.Models;
@@ -41,5 +42,23 @@ namespace Neredataltics.SmartFeatures.Services.WeatherServices
                 Temperature = result.Temperature
             };
         }
+
+        public async Task<List<GetWeatherHistoryResponse>> GetWeatherHistoryAsync(string country, string city, DateTime? fromTime, DateTime? toTime, CancellationToken cancellationToken = default)
+        {
+            var weatherHistories = await _weatherConditionRepository.GetWeatherHistoryAsync(country, city, fromTime, toTime, cancellationToken);
+            return weatherHistories.GroupBy(i => new { i.Country, i.City }).Select(i => new GetWeatherHistoryResponse
+            {
+                City = i.Key.City,
+                Country = i.Key.Country,
+                AverageTemprature = i.Average(i => i.Temperature),
+                Detail = i.Select(item => new GetWeatherHistoryResponse.GetWeatherHistoryDetailResponse
+                {
+                    Temperature = item.Temperature,
+                    AirCondition = item.AirCondition,
+                    Time = item.Time
+                }).ToList()
+            }).ToList();
+        }
+
     }
 }
