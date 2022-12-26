@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Neredataltics.SmartFeatures.Data;
+using Neredataltics.SmartFeatures.Data.Repositories;
 using Neredataltics.SmartFeatures.Models.Options;
 using Neredataltics.SmartFeatures.Services.WeatherServices;
 
@@ -11,8 +15,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DataBaseContext"));
+});
+
 builder.Services.Configure<SmartModelOptions>(builder.Configuration.GetSection("SmartModelOptions"));
 builder.Services.AddScoped<IWeatherService, WeatherService>();
+
+builder.Services.AddScoped<IWeatherConditionRepository, WeatherConditionRepository>();
 
 var app = builder.Build();
 

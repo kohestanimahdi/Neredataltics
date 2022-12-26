@@ -23,4 +23,8 @@
 		<Protobuf Include="..\weather.proto" GrpcServices="Client" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Models\Entities\WeatherAggregates\Enums\" />
+	</ItemGroup>
+
 </Project>
