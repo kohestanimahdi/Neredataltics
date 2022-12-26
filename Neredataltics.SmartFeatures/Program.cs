@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Neredataltics.SmartFeatures.Data;
 using Neredataltics.SmartFeatures.Data.Repositories;
 using Neredataltics.SmartFeatures.Models.Options;
@@ -26,6 +24,10 @@ builder.Services.AddScoped<IWeatherService, WeatherService>();
 builder.Services.AddScoped<IWeatherConditionRepository, WeatherConditionRepository>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+using (var context = scope.ServiceProvider.GetService<ApplicationDBContext>())
+    context.Database.Migrate();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
