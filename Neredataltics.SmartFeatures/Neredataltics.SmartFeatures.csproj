@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<Nullable>enable</Nullable>
+		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>4dc22117-5143-46d8-a6bb-39f2d053cb33</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -21,10 +21,6 @@
 
 	<ItemGroup>
 		<Protobuf Include="..\weather.proto" GrpcServices="Client" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Services\WeatherServices\" />
 	</ItemGroup>
 
 </Project>
