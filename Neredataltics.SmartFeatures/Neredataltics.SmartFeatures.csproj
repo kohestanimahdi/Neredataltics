@@ -23,4 +23,8 @@
 		<Protobuf Include="..\weather.proto" GrpcServices="Client" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Services\WeatherServices\" />
+	</ItemGroup>
+
 </Project>
