@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Neredataltics.SmartFeatures.Data;
+using Neredataltics.SmartFeatures.Data.DataInitializers;
 using Neredataltics.SmartFeatures.Data.Repositories;
 using Neredataltics.SmartFeatures.Models.Options;
 using Neredataltics.SmartFeatures.Services.WeatherServices;
@@ -22,13 +23,22 @@ builder.Services.Configure<SmartModelOptions>(builder.Configuration.GetSection("
 builder.Services.AddScoped<IWeatherService, WeatherService>();
 
 builder.Services.AddScoped<IWeatherConditionRepository, WeatherConditionRepository>();
+builder.Services.AddScoped<IDataInitializer, WeatherConditionDataInitializer>();
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
-using (var context = scope.ServiceProvider.GetService<ApplicationDBContext>())
+{
+    var context = scope.ServiceProvider.GetService<ApplicationDBContext>();
+    context.Database.EnsureCreated();
     context.Database.Migrate();
-
+}
+using (var scope = app.Services.CreateScope())
+{
+    var dataInitializers = scope.ServiceProvider.GetServices<IDataInitializer>();
+    foreach (var dataInitializer in dataInitializers)
+        dataInitializer.Initialize();
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

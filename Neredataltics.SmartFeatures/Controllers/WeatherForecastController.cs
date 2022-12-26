@@ -24,7 +24,8 @@ namespace Neredataltics.SmartFeatures.Controllers
 
 
         [AllowAnonymous]
-        [HttpGet(Name = "GetCurrentWeatherForecast")]
+        [HttpGet]
+        [Route("CurrentWeatherForecast")]
         [ProducesResponseType(typeof(GetCurrentWeatherResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetWeatherForecasts([FromQuery, Required] string country = "Iran", [FromQuery, Required] string city = "Isfahan", CancellationToken cancellationToken = default)
         {
@@ -34,7 +35,8 @@ namespace Neredataltics.SmartFeatures.Controllers
 
 
         [AllowAnonymous]
-        [HttpGet(Name = "GetWeatherHistory")]
+        [HttpGet]
+        [Route("WeatherHistory")]
         [ProducesResponseType(typeof(List<GetWeatherHistoryResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetWeatherHistory([FromQuery] GetWeatherHistoryRequest request, CancellationToken cancellationToken = default)
         {

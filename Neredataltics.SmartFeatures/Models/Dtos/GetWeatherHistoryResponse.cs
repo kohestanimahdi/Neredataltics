@@ -10,6 +10,7 @@ namespace Neredataltics.SmartFeatures.Models.Dtos
             public int Temperature { get; set; }
             public DateTime Time { get; set; }
         }
+        
         public string Country { get; set; }
         public string City { get; set; }
         public double AverageTemprature { get; set; }
