@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "Neredataltics.Common";
+
+package weather;
+
+// The greeting service definition.
+service WeatherService {
+  // Sends a greeting
+  rpc GetWeatherForLocation (WeatherConditionRequest) returns (WeatherConditionResponse);
+}
+
+enum AirConditions {
+    Sunny = 0;
+    Snow = 1;
+    Rainny = 2;
+    Cloudy = 3;
+    Foggy = 4;
+}
+message WeatherConditionRequest{
+	string Country = 1;
+	string City = 2;
+}
+message WeatherConditionResponse{
+	int32 Temperature = 1;
+	AirConditions Condition = 2;
+}

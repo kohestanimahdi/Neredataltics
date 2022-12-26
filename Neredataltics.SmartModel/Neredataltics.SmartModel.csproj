@@ -9,16 +9,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\weather.proto" GrpcServices="Server" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
 		<PackageReference Include="Grpc.Tools" Version="2.49.0">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\weather.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>

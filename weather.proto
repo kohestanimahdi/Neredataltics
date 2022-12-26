@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Neredataltics.SmartModel";
+option csharp_namespace = "Neredataltics.Shared";
 
 package weather;
 

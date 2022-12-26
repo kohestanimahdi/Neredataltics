@@ -1,8 +1,9 @@
 ﻿using Grpc.Core;
+using Neredataltics.Shared;
 
 namespace Neredataltics.SmartModel.Services
 {
-    public class WeatherService : SmartModel.WeatherService.WeatherServiceBase
+    public class WeatherService : Shared.WeatherService.WeatherServiceBase
     {
         static Random _random = new();
         private int GetRandomTemperature() => _random.Next(-100, 100);
