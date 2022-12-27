@@ -29,9 +29,15 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetService<ApplicationDBContext>();
-    context.Database.EnsureCreated();
-    context.Database.Migrate();
+    try
+    {
+        var context = scope.ServiceProvider.GetService<ApplicationDBContext>();
+        context.Database.EnsureCreated();
+        context.Database.Migrate();
+    }
+    catch
+    {
+    }
 }
 using (var scope = app.Services.CreateScope())
 {
